@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Events\MoreThanTwo;
 use App\Mail\MailSender;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -12,8 +13,6 @@ use App\Models\Writeup;
 use Illuminate\Http\Request;
 use App\Repository\Interfaces\BlogRepositoryInterface;
 use App\Models\Joining;
-use PhpParser\Node\Scalar\String_;
-use function MongoDB\BSON\toJSON;
 
 
 class BlogsController extends Controller
@@ -26,7 +25,8 @@ class BlogsController extends Controller
     }
     public function index(){
             $writeups = $this->blogRepository->all();
-            return view('blogs.read')->with('writeups',$writeups);
+           return response()->json($writeups);
+//            return view('blogs.read')->with('writeups',$writeups);
     }
     public function create()
     {
@@ -38,18 +38,20 @@ class BlogsController extends Controller
         $email=$user->email;
         $name=$user->name;
        $this->blogRepository->storeRecord($request,$user->id);
-       $writes=$this->blogRepository->getRecordById($user->id);
-       $count = count($writes);
-        if ($count >= 2){
-            event(new MoreThanTwo());
-        }
-        $emaildata = new \stdClass();
-        $emaildata->sendto = $name;
+//       $writes=$this->blogRepository->getRecordById($user->id);
+//       $count = count($writes);
+//        if ($count >= 2){
+//            event(new MoreThanTwo());
+//        }
+//        $emaildata = new \stdClass();
+//        $emaildata->sendto = $name;
 
-        Mail::to($email)->send(new MailSender($emaildata));
+//        Mail::to($email)->send(new MailSender($emaildata));
 //        $query = new Joining();
+
+        return response('Success a blog was added', 200);
 //         dd($query);
-        return redirect()->back()->with('success','The blog has been published , an email has been sent');
+//        return redirect()->back()->with('success','The blog has been published , an email has been sent');
     }
     public function show($id)
     {
@@ -63,12 +65,14 @@ class BlogsController extends Controller
     public function update(Request $request, $id)
     {
         $this->blogRepository->updateRecord($request, $id);
-        return redirect()->back()->with('success','The blog has been edited');
+        return response('A blog was updated', 200);
+//        return redirect()->back()->with('success','The blog has been edited');
     }
     public function destroy($id)
     {
         $this->blogRepository->deleteRecord($id);
-        return 1;
+        return response('A blog was destroyed', 200);
+//        return 1;
 //        return redirect()->back()->with('success','The blog has been deleted');
 
     }

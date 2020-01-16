@@ -30,6 +30,7 @@ class BlogRepository implements BlogRepositoryInterface
     public function deleteRecord($id)
     {
         $writeup = Writeup::find($id);
+        Log::info("Data to be deleted " . $id);
         $writeup->delete();
 //        Cache::forget('blogs');
         return true;
@@ -57,8 +58,9 @@ class BlogRepository implements BlogRepositoryInterface
         try {
             $onetodo=new Writeup();
             $onetodo->user_id=$id;
-            $onetodo->setTile($request->input('title'));
-            $onetodo->setMessage($request->input('message'));
+            Log::info("This is the data I have gotten " . $request[0] . " and the next " . $request[1]);
+            $onetodo->setTile($request[0]);
+            $onetodo->setMessage($request[1]);
             $onetodo->setDate(\Carbon\Carbon::now());
 //            echo "The data " . $request->input('dob');
             $onetodo->save();

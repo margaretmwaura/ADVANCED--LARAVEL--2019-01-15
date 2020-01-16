@@ -8,12 +8,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -36,7 +37,6 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                       <a  href="/writeups" style="margin-top:30px">The blogs</a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -50,7 +50,6 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-                                <a class="dropdown-item" href="/writeups/create">Create Blog</a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
@@ -70,12 +69,15 @@
                 </div>
             </div>
         </nav>
-
-        @include('messages')
-        @yield('content')
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <div id="root">
+        <main-template>
+            <router-view></router-view>
+                @yield('content')
+        </main-template>
+    </div>
 </body>
+
+<script src="{{ asset('js/app.js') }}"></script>
 </html>
