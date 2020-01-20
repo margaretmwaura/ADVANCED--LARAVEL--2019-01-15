@@ -15,29 +15,8 @@ import App from "./components/App.vue";
 Vue.use(VueRouter);
 
 // import Vue from 'vue'
-const routes = [
-    {
-        name : 'Create',
-        path: '/create',
-        component: Create_blog,
-
-    },
-    {
-        name : 'Edit',
-        path: '/edit',
-        component: Edit_bllog,
-
-    },
-    {
-        name : 'Read',
-        path: '/read',
-        component: Read_blog,
-
-    }
-];
 const router = new VueRouter({
     mode: 'history',
-    routes: routes
 });
 
 new Vue({

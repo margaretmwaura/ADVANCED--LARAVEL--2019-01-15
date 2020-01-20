@@ -14,10 +14,10 @@ class BlogRepository implements BlogRepositoryInterface
     public function all()
     {
 
-//                return Writeup::all();
-        return Cache::remember('blogs', 15, function() {
-              return Writeup::all();
-          });
+                return Writeup::all();
+//        return Cache::remember('blogs', 15, function() {
+//              return Writeup::all();
+//          });
     }
     public function getRecordById($id)
     {
@@ -70,6 +70,6 @@ class BlogRepository implements BlogRepositoryInterface
             Log::info("An error was encountered".$e->getMessage());
         }
 
-        Cache::forget('blogs');
+//        Cache::forget('blogs');
     }
 }

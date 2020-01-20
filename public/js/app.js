@@ -1491,25 +1491,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue_
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
 // import Vue from 'vue'
-var routes = [{
-    name: 'Create',
-    path: '/create',
-    component: __WEBPACK_IMPORTED_MODULE_2__components_Create_blog_vue___default.a
-
-}, {
-    name: 'Edit',
-    path: '/edit',
-    component: __WEBPACK_IMPORTED_MODULE_3__components_Edit_bllog_vue___default.a
-
-}, {
-    name: 'Read',
-    path: '/read',
-    component: __WEBPACK_IMPORTED_MODULE_4__components_Read_blog_vue___default.a
-
-}];
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
-    mode: 'history',
-    routes: routes
+    mode: 'history'
 });
 
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -45120,6 +45103,8 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -45135,15 +45120,80 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'app',
-    components: {},
+    name: "app",
     data: function data() {
-        return {};
+        return {
+            title: ' ',
+            message: ' ',
+            blogs: []
+        };
     },
 
-    methods: {}
+    methods: {
+        postdata: function postdata() {
+            var _this = this;
+
+            console.log("What is going to the database " + this.title + " " + this.message);
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('http://todoapp.appp/writeups', [this.title, this.message]).then(function (response) {
+                console.log("Getting movies was a success + the response " + response.data);
+                _this.getdata();
+            }).catch(function (error) {});
+        },
+        getdata: function getdata() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('http://todoapp.appp/writeups').then(function (response) {
+                console.log("Getting movies was a success + the response " + response.data);
+                _this2.blogs = response.data;
+            }).catch(function (error) {});
+        },
+        deleteitem: function deleteitem(id) {
+            var _this3 = this;
+
+            console.log(id);
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('http://todoapp.appp/writeups/' + id).then(function (response) {
+                console.log("Getting movies was a success + the response " + response.data);
+                _this3.blog = response.data;
+                _this3.getdata();
+            }).catch(function (error) {});
+        }
+    },
+    mounted: function mounted() {
+        this.getdata();
+    }
 });
 
 /***/ }),
@@ -45154,37 +45204,174 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "app" } },
-    [
-      _c("div", { attrs: { id: "app_rou" } }, [
-        _c(
-          "div",
-          { attrs: { id: "app_rou_inner" } },
-          [
-            _c("router-link", { attrs: { to: "/create", id: "thing" } }, [
-              _vm._v("Create Movie")
-            ]),
-            _vm._v(" "),
-            _c("router-link", { attrs: { to: "/edit", id: "thingt" } }, [
-              _vm._v(" Edit Movie ")
-            ]),
-            _vm._v(" "),
-            _c("router-link", { attrs: { to: "/read", id: "thingtt" } }, [
-              _vm._v(" Read Movie ")
-            ])
-          ],
-          1
-        )
-      ]),
+  return _c("div", { staticClass: "container", attrs: { id: "app" } }, [
+    _c(
+      "form",
+      {
+        staticClass: "form-horizontal",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.postdata($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "label",
+            { staticClass: "col-sm-2 control-label", attrs: { for: "Title" } },
+            [_vm._v("First Name")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-10" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.title,
+                  expression: "title"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "title",
+                placeholder: "Enter your title"
+              },
+              domProps: { value: _vm.title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.title = $event.target.value
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-sm-2 control-label",
+              attrs: { for: "Message" }
+            },
+            [_vm._v("Last Name")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-10" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.message,
+                  expression: "message"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "message",
+                placeholder: "Enter your blog details"
+              },
+              domProps: { value: _vm.message },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.message = $event.target.value
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c("p", [_vm._v("This is are all the blogs")]),
       _vm._v(" "),
-      _vm._t("default")
-    ],
-    2
-  )
+      _c(
+        "table",
+        { staticClass: "table" },
+        [
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._l(_vm.blogs, function(item) {
+            return _c("tr", { key: item.id }, [
+              _c("td", [_vm._v(_vm._s(item.title))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.message))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.date))]),
+              _vm._v(" "),
+              _c("td", [_c("BUTTON", [_vm._v("Edit")])], 1),
+              _vm._v(" "),
+              _c(
+                "td",
+                [
+                  _c(
+                    "BUTTON",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteitem(item.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ],
+                1
+              )
+            ])
+          })
+        ],
+        2
+      )
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("div", { staticClass: "col-sm-offset-2 col-sm-10" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-default", attrs: { type: "submit" } },
+          [_vm._v("Create Blog")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("Title")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Message")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Date posted")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Edit")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Delete")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -48375,7 +48562,7 @@ var staticRenderFns = [
         _c(
           "button",
           { staticClass: "btn btn-default", attrs: { type: "submit" } },
-          [_vm._v("Sign in")]
+          [_vm._v("Create Blog")]
         )
       ])
     ])
@@ -48476,7 +48663,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -48491,9 +48678,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "Edit_bllog"
+    name: "Edit_bllog",
+    data: function data() {
+        return {
+            blog: ' ',
+            title: ' ',
+            message: ' '
+        };
+    },
+    created: function created() {
+        this.blog = this.$route.params.blog;
+        this.title = this.$route.params.blog.title;
+        this.message = tthis.$route.params.blog.message;
+    }
 });
 
 /***/ }),
@@ -48504,9 +48726,95 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "container" }, [
+    _c("p", [_vm._v("This is the data of the blog and " + _vm._s(_vm.blog))]),
+    _vm._v(" "),
+    _c("form", { staticClass: "form-horizontal" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c(
+          "label",
+          { staticClass: "col-sm-2 control-label", attrs: { for: "Title" } },
+          [_vm._v("Ttile")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.title,
+                expression: "title"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "title" },
+            domProps: { value: _vm.title },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.title = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c(
+          "label",
+          { staticClass: "col-sm-2 control-label", attrs: { for: "Message" } },
+          [_vm._v("Message")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.message,
+                expression: "message"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "message" },
+            domProps: { value: _vm.message },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.message = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("div", { staticClass: "col-sm-offset-2 col-sm-10" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-default", attrs: { type: "submit" } },
+          [_vm._v("Edit a blog")]
+        )
+      ]),
+      _vm._v("s\n        ")
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -48742,7 +49050,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -48765,6 +49073,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -48773,16 +49083,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: {
         blog: Array
     },
+    data: function data() {
+        return {};
+    },
+
     methods: {
-        deleteitem: function deleteitem() {
+        deleteitem: function deleteitem(id) {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('http://todoapp.appp/writeups/' + this.blog.id).then(function (response) {
+            console.log(id);
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('http://todoapp.appp/writeups/' + id).then(function (response) {
                 console.log("Getting movies was a success + the response " + response.data);
-                _this.blogs = response.data;
+                _this.blog = response.data;
             }).catch(function (error) {});
+        },
+        editablog: function editablog() {
+            console.log("What I am passing " + this.blog.title + " " + this.blog.message);
+            this.$router.push({
+                path: 'Edit',
+                props: {
+                    blog: Array
+                }
+            });
         }
     }
+
 });
 
 /***/ }),
@@ -48794,13 +49119,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("p", [_vm._v(_vm._s(_vm.blog))]),
+    _c("p", [_vm._v(_vm._s(_vm.blog.title))]),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.blog.message))]),
     _vm._v(" "),
     _c(
       "button",
-      { attrs: { id: _vm.blog.id }, on: { click: _vm.deleteitem } },
+      {
+        attrs: { id: _vm.blog.id },
+        on: {
+          click: function($event) {
+            return _vm.deleteitem(_vm.blog.id)
+          }
+        }
+      },
       [_vm._v("Deleting a Record " + _vm._s(_vm.blog.id) + " ")]
-    )
+    ),
+    _vm._v(" "),
+    _c("button", { attrs: { id: _vm.blog.id }, on: { click: _vm.editablog } }, [
+      _vm._v("Edit a blog ")
+    ])
   ])
 }
 var staticRenderFns = []
