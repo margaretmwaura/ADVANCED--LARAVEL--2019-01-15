@@ -26,7 +26,7 @@
            {
                getdata()
                {
-                   axios.get('http://todoapp.appp/writeups')
+                   axios.get('http://mgcytonn.ga/writeups')
                        .then(response => {
                            console.log("Getting movies was a success + the response " + response.data);
                            this.blogs = response.data

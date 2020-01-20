@@ -29,7 +29,7 @@
                 deleteitem(id)
                 {
                     console.log(id);
-                    axios.delete('http://todoapp.appp/writeups/' + id)
+                    axios.delete('http://mgcytonn.ga//writeups/' + id)
                         .then(response => {
                             console.log("Getting movies was a success + the response " + response.data);
                             this.blog = response.data

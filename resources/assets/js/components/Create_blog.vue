@@ -40,7 +40,7 @@
                 postdata()
                 {
                     console.log("What is going to the database " + this.title + " " + this.message);
-                    axios.post('http://todoapp.appp/writeups',[this.title,this.message])
+                    axios.post('http://mgcytonn.ga/writeups',[this.title,this.message])
                         .then(response => {
                             console.log("Getting movies was a success + the response " + response.data);
                             this.blogs = response.data
